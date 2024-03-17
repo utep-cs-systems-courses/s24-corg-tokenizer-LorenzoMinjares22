@@ -15,7 +15,7 @@ typedef struct s_List{
 
 
 List* init_history(){
-  list *list = (List*)malloc(sizeof(List));
+  List *list = (List*)malloc(sizeof(List));
   list ->root = NULL;
   return list;
 }
@@ -23,14 +23,110 @@ List* init_history(){
 void
 add_history(List *list, char *str){
   Item *new_item = (Item*)malloc(sizeof(Item));
-  new_item ->id = (list->root == NULL)? 1: list ->root->id +1;
+  // Set item id
 
-  //allocate memeory for the sting and coppy its contents
+  new_item->id = (list->root == NULL) ? 1 : list->root->id + 1;
+
+
+
+  // Allocate memory for the string and copy its contents
+
   int length = 0;
-  while(str[length] != '\O'){
+
+  while (str[length] != '\0') {
+
     length++;
+
   }
 
-  new_item -> str =(char*)malloc((length +1) * sizeof(char));
+  new_item->str = (char*)malloc((length + 1) * sizeof(char));
+  for (int i = 0; i <= length; i++) {
+
+    new_item->str[i] = str[i];
+
+  }
+
+
+
+  new_item->next = NULL;
+
+
+
+  // Add new item to the end of the list
+
+  if (list->root == NULL) {
+
+    list->root = new_item;
+
+  } else {
+
+    Item *current = list->root;
+
+    while (current->next != NULL) {
+
+      current = current->next;
+
+    }
+
+    current->next = new_item;
+
+  }
+
+}//end of add history
+
+
+char *get_history(List *list, int id) {
+
+  Item *current = list->root;
+
+  while (current != NULL) {
+
+    if (current->id == id) {
+
+      return current->str;
+
+    }
+
+    current = current->next;
+
+  }
+
+  return NULL;
+
+}
+
+
+void print_history(List *list) {
+
+  Item *current = list->root;
+
+  while (current != NULL) {
+
+    printf("%d: %s\n", current->id, current->str);
+
+    current = current->next;
+
+  }
+
+}
+
+
+void free_history(List *list) {
+
+  Item *current = list->root;
+
+  while (current != NULL) {
+
+    Item *temp = current;
+
+    current = current->next;
+
+    free(temp->str);
+
+    free(temp);
+
+  }
+
+  free(list);
 
 }
