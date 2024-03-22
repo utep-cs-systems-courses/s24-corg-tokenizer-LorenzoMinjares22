@@ -14,6 +14,16 @@ typedef struct s_List{
 }List;
 
 */
+
+//checks length of a sting use in add history
+int string_length(char str[]){
+
+  int i;
+  for(i=0;str[i] != '\0'; ++i);
+  return i;
+
+}
+
 List* init_history(){
   List *list = (List*)malloc(sizeof(List));
   list ->root = NULL;
