@@ -17,6 +17,8 @@ int non_space_char(char c){
   if(space_char(c) == 0){
     return 1;
   }
+
+  return 0;
 }//end of function
 
 
@@ -44,7 +46,7 @@ char *token_terminator(char *token){
       return token;
     }
   }
-  return NULL;
+  return 0;
   
 }//end of function
     
@@ -172,7 +174,7 @@ void free_tokens(char **tokens) {
 
 }
 
-
+/*
 int main() {
 
   char c = ' ';
@@ -218,3 +220,4 @@ int main() {
 
 
   
+*/
