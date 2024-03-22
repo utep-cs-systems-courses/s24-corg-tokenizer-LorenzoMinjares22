@@ -31,4 +31,7 @@ void print_history(List *list);
 /*Free the history list and the strings it references. */
 void free_history(List *list);
 
+
+//get length of a string use in add history
+int string_length(char str[]);
 #endif
