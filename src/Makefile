@@ -1,5 +1,5 @@
 #define bariable $(OBJS) to list of object files
-OBJS = history.o tokenizer.o tester.o uimain.o
+OBJS = history.o tokenizer.o tester.o
 
 # make has a "default rule" specifying how to build a an "object" file (.o) from a C source file (.c)
 
