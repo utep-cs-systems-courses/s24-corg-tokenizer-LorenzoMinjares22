@@ -30,81 +30,109 @@ List* init_history(){
   return list;
 }
 
-void add_history(List *list, char *str){
-  Item *new_item = (Item*)malloc(sizeof(Item));
-  // Set item id
 
-  new_item->id = (list->root == NULL) ? 1 : list->root->id + 1;
+void add_history(List *list, char *str) {
 
+  // Allocate memory for the new history item
 
-
-  // Allocate memory for the string and copy its contents
-
-  int length = 0;
-
-  while (str[length] != '\0') {
-
-    length++;
-
-  }
-
-  new_item->str = (char*)malloc((length + 1) * sizeof(char));
-  for (int i = 0; i <= length; i++) {
-
-    new_item->str[i] = str[i];
-
-  }
+  Item *tempItem = (Item*)malloc(sizeof(Item));
 
 
 
-  new_item->next = NULL;
+  // Initialize variables
+
+  Item *temp = list->root; // Temporary pointer to traverse the list
+
+  int id = 0; // Initialize the history ID counter
 
 
 
-  // Add new item to the end of the list
+  // Assign the string to the new history item
+
+  tempItem->str = str;
+
+
+
+  // Check if the history list is empty
 
   if (list->root == NULL) {
 
-    list->root = new_item;
+    // If the list is empty, make the new item the root
+
+    tempItem->next = NULL;
+
+    tempItem->id = id;
+
+    list->root = tempItem;
 
   } else {
 
-    Item *current = list->root;
+    // If the list is not empty, find the last item
 
-    while (current->next != NULL) {
+    id++; // Increment the ID counter
 
-      current = current->next;
+
+
+    // Traverse the list until the last item
+
+    while (temp->next != NULL) {
+
+      temp = temp->next;
+
+      id++; // Increment the ID counter for each existing item
 
     }
 
-    current->next = new_item;
+
+
+    // Assign the ID and set the next pointer of the last item to
+
+    tempItem->next = NULL;
+
+    tempItem->id = id;
+
+    temp->next = tempItem;
 
   }
 
-}//end of add history
+}
 
 
 char *get_history(List *list, int id) {
 
+  // Start from the root of the history list
+
   Item *current = list->root;
+
+
+
+  // Traverse the history list until reaching the end
 
   while (current != NULL) {
 
+    // Check if the ID of the current history item matches the requested ID
+
     if (current->id == id) {
+
+      // If found, return the string associated with the current history item
 
       return current->str;
 
     }
 
+    // Move to the next history item
+
     current = current->next;
 
   }
 
+
+
+  // If the requested ID is not found in the history list, return NULL
+
   return NULL;
 
 }
-
-
 void print_history(List *list) {
 
   Item *current = list->root;
